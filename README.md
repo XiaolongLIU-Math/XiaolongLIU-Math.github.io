@@ -1,12 +1,12 @@
 # Xiaolong Liu · 数学学术主页
 
-这份文件夹可以直接作为 GitHub Pages 仓库使用。包括四个页面、原照片、两篇论文及可展开摘要、TeX 数学公式、完整本地字体，以及自动发布配置。不需要付费服务、数据库、API 密钥或安装前端工具。
+这份文件夹可以直接作为 GitHub Pages 仓库使用。包括六个页面、原照片、两篇论文及可展开摘要、TeX 数学公式、完整本地字体，以及自动发布配置。不需要付费服务、数据库、API 密钥或安装前端工具。
 
 ## 第一次发布
 
 1. 登录 GitHub，创建一个 **Public（公开）** 仓库，推荐名称：`你的GitHub用户名.github.io`。这样主页地址就是 `https://你的GitHub用户名.github.io/`。
-2. 把解压后的**文件夹内全部内容**上传到仓库的根目录，使用 `main` 分支。根目录应直接看到 `index.html`、`assets`、`notes`、`friends`、`links`、`scripts` 和 `.github`，不要再套一层文件夹。不要仅上传 ZIP。
-3. **必须包含 `.github/workflows/pages.yml`。** `.github` 是隐藏文件夹：macOS Finder 中按 `Command + Shift + .` 可以显示它，再一并上传。这里的 `.nojekyll` 和 `.gitignore` 也建议保留。
+2. 把解压后的**文件夹内全部内容**上传到仓库的根目录，使用 `main` 分支。根目录应直接看到 `index.html`、`assets`、`notes`、`friends`、`links`、`experts`、`tools`、`scripts` 和 `.github`，不要再套一层文件夹。不要仅上传 ZIP。
+3. **必须包含 `.github/workflows/pages.yml`。** 如果浏览器提示隐藏文件无法上传，在仓库选择 **Add file → Create new file**，文件名填 `.github/workflows/pages.yml`，复制本文件夹中对应文件的内容并提交。已经配置过的网站无需重复操作。
 4. 在仓库打开 **Settings → Pages → Build and deployment → Source**，选择 **GitHub Actions**。网站已经附带发布配置，无需再创建模板。
 5. 打开 **Actions → Publish academic homepage → Run workflow → Run workflow**。以后每次向 `main` 提交修改，都会自动更新网站。
 6. 等待该次运行显示绿色完成标记。在 **Settings → Pages** 或该次运行的 `github-pages` 部署中打开正式网址。
@@ -23,6 +23,8 @@
 | 讲义 | `notes/index.html` |
 | 朋友链接 | `friends/index.html` |
 | 资料链接 | `links/index.html` |
+| 学者主页 | `experts/index.html` |
+| 数学工具 | `tools/index.html` |
 | 照片 | `assets/xiaolong-liu.jpg` |
 | 配色、字号、留白 | `assets/style.css` |
 | TeX 宏 | `assets/mathjax-config.js` |
@@ -30,6 +32,114 @@
 网页内容都是普通 HTML。只改文字时不用调整发布配置。修改后提交到 `main` 即可自动发布。`_site` 是发布过程中生成的目录，不要手动修改或上传。
 
 Basic Information 按你提供的原文保留为 fourth-year graduate (& second-year Ph.D.)，分为三组条目。两篇论文分别链接到 arXiv:2609.17720 和 arXiv:2507.21582，PDF 链接直接打开 arXiv 的 PDF 页面。
+
+## 已有网站：上传更新文件
+
+本仓库是 `XiaolongLIU-Math/XiaolongLIU-Math.github.io`，主页是 <https://xiaolongliu-math.github.io/>。
+
+1. 解压更新包，打开解压后的文件夹。
+2. 打开 [仓库根目录的上传页面](https://github.com/XiaolongLIU-Math/XiaolongLIU-Math.github.io/upload/main)。
+3. 将更新包内的文件和子文件夹一起拖入上传区，保留原有目录结构；不要上传 ZIP 或外面那层包装文件夹。
+4. 选择直接提交到 `main`，点击 **Commit changes**。同路径文件会被替换，新路径文件会新增；其他文件不会因此删除。
+5. 到仓库顶部的 **Actions** 等待 **Publish academic homepage** 显示绿色完成标记，再刷新主页。
+
+不用先删除旧文件，也不用重新设置 Pages 或 Search Console。Google 所有权验证文件应一直保留。
+
+## 新增论文模板
+
+打开 `index.html`，搜索中文注释 `Research：每篇论文`。把下面完整区块放在第一篇论文的 `<article class="paper">` 前面，即可把新论文排在最上面。不要放进其他论文的 `article` 内。
+
+将 `PAPER_TITLE`、`YEAR`、`PAGE_COUNT`、`ARXIV_ID`、`ABSTRACT_TEXT` 和 `VERSION_DATE` 换成实际内容。`ARXIV_ID` 共出现三次，都要修改；例如 `2609.17720`。标题、摘要都支持 TeX 公式。多段摘要可以增加更多 `<p>...</p>`。
+
+```html
+<!-- 新论文 -->
+<article class="paper">
+  <div class="paper-meta">
+    <span>Preprint</span>
+    <span>YEAR</span>
+  </div>
+
+  <h3>PAPER_TITLE</h3>
+  <p class="byline">
+    Xiaolong Liu <span class="byline-separator">·</span> PAGE_COUNT pages
+  </p>
+
+  <div class="paper-actions">
+    <a href="https://arxiv.org/abs/ARXIV_ID">
+      arXiv:ARXIV_ID <span aria-hidden="true">↗</span>
+    </a>
+    <a href="https://arxiv.org/pdf/ARXIV_ID">
+      PDF <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <details class="abstract">
+    <summary>
+      <span class="abstract-closed">Abstract</span>
+      <span class="abstract-open">Hide abstract</span>
+      <span class="toggle-symbol" aria-hidden="true"></span>
+    </summary>
+    <div class="abstract-content">
+      <p>ABSTRACT_TEXT</p>
+    </div>
+  </details>
+
+  <!-- 例如：17 September 2026 · v1 -->
+  <p class="version">VERSION_DATE · v1</p>
+</article>
+```
+
+作者有合作者时，直接修改 `byline` 中的作者列表。已投稿或发表时，可以修改 `Preprint`，并按已有论文的格式增加状态或期刊信息。
+
+文件末尾的 `搜索引擎信息` 中另有现有论文的 `ScholarlyArticle` 信息。修改现有论文的标题、日期、摘要时，请同步对应的 `name`、`datePublished` / `dateModified`、`abstract`；它们不控制网页显示。新增论文只添加上面的 HTML 就能正常显示，无需为了发布而手动增加这一可选数据。HTML 正文中的 TeX 使用单个反斜杠；JSON 字符串中的反斜杠需要写成 `\\`。
+
+## 新增 Talk 模板
+
+打开 `index.html`，搜索中文注释 `Talks：按年份`。找到相应年份的 `<ol class="talk-list">`，把下面整个 `<li>...</li>` 区块放在该列表内，按日期从新到旧排序。
+
+每场报告统一分成三组：日期和标题；书本图标加会议／研讨班名称；定位图标加学校／研究所、城市、国家。长文字会自动换行，无需手动添加 `<br>`。没有专门活动名称时，将 `EVENT_NAME` 写成 `Invited talk`。
+
+```html
+<!-- 新报告：填写日期 -->
+<li>
+  <!-- 第一行：datetime 用 YYYY-MM-DD，显示日期用 10 Apr 这样的格式 -->
+  <time datetime="YYYY-MM-DD">DAY MON</time>
+  <div>
+    <h4>TALK_TITLE</h4>
+
+    <!-- 第二行：会议／研讨班名称 -->
+    <p class="talk-event">
+      <svg class="talk-icon" aria-hidden="true"><use href="#icon-book"></use></svg>
+      <span>EVENT_NAME</span>
+    </p>
+
+    <!-- 第三行：学校／研究所 · 城市, 国家 -->
+    <p class="talk-location">
+      <svg class="talk-icon" aria-hidden="true"><use href="#icon-location"></use></svg>
+      <span>INSTITUTION · CITY, COUNTRY</span>
+    </p>
+  </div>
+</li>
+```
+
+需要会议链接时，把 `<span>EVENT_NAME</span>` 换成下面这一段；学校／研究所名称也可以用同样方法加链接：
+
+```html
+<span>
+  <a href="https://example.org/meeting">EVENT_NAME</a>
+</span>
+```
+
+新增年份时，在现有年份上方、Talks 的 `<div class="section-body">` 内加入以下区块，再把 Talk 模板放到 `ol` 里面。将 `YEAR` 换成实际年份：
+
+```html
+<h3 class="year-heading">YEAR</h3>
+<ol class="talk-list">
+  <!-- 把该年份的报告 li 区块放在这里 -->
+</ol>
+```
+
+只增删论文或报告时，通常只需上传修改后的 `index.html`。`<!-- ... -->` 是编辑提示，不会显示在网页上。普通文字中的 `&` 请写成 `&amp;`，小于号请写成 `&lt;`。
 
 ## 数学公式和摘要
 
